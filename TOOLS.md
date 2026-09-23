@@ -21,7 +21,10 @@ All list tools accept the API's supported JSON:API `query` filters, pagination, 
 - `list_account_summary_reports` — Find account summary reports across accessible accounts.
 - `get_account_summary_report` — Inspect an account summary report.
 - `list_assignments` — Find training assignments.
+- `create_assignment` — Create a training assignment with a JSON:API payload.
 - `get_assignment` — Inspect a training assignment.
+- `add_learner_to_assignment` — Enroll a learner through an assignment enrollment extra.
+- `add_group_to_assignment` — Enroll a group through an assignment enrollment condition.
 - `list_assignment_learners` — See learners enrolled in an assignment.
 - `get_assignment_learner_activity` — Review a learner's activity on an assignment.
 - `get_assignment_completion_certificate` — Retrieve a learner's completion certificate.
@@ -35,7 +38,10 @@ All list tools accept the API's supported JSON:API `query` filters, pagination, 
 - `list_episodes` — Find training episodes.
 - `get_episode` — Inspect a training episode.
 - `list_groups` — Find learner groups.
+- `create_group` — Create a learner group with a JSON:API payload.
 - `get_group` — Inspect a learner group.
+- `move_learner_to_group` — Move a learner into a group.
+- `remove_learner_from_group` — Remove a learner from its group.
 - `list_learners` — Find learners.
 - `get_learner` — Inspect a learner.
 

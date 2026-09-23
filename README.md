@@ -24,6 +24,8 @@ export CURRICULA_ACCESS_TOKEN="your-access-token"
 export CURRICULA_BASE_URL="https://mycurricula.com/api/v1"
 ```
 
+For group, learner, and assignment management, the Curricula OAuth client must be granted `assignments:read`, `assignments:manage`, `learners:read`, and `learners:manage`. The server requests those scopes by default when configured with `CURRICULA_CLIENT_ID` and `CURRICULA_CLIENT_SECRET`; a pre-issued `CURRICULA_ACCESS_TOKEN` must carry them already.
+
 For the development sandbox, set `CURRICULA_BASE_URL=https://dev.curricula.com/api/v1`.
 
 The server sends `Authorization: Bearer <token>` and uses the JSON:API media type. See the [Curricula authentication and scopes documentation](https://curricula.stoplight.io/docs/curricula-api/90755b35b33f4-authentication).
@@ -56,7 +58,7 @@ See [TOOLS.md](TOOLS.md) for the complete catalog.
 
 ## Safety
 
-Most tools are read-only. The five state-changing tools (`delete_account`, `report_phishing_attempt`, `create_admin_user`, `update_admin_user`, and `delete_admin_user`) forward the request immediately. Agents should confirm intent before calling them.
+Most tools are read-only. State-changing tools, including group movement and assignment enrollment, forward the request immediately. Agents should confirm intent before calling them.
 
 ## Development
 
@@ -64,4 +66,3 @@ Most tools are read-only. The five state-changing tools (`delete_account`, `repo
 pip install -e ".[dev]"
 pytest
 ```
-
