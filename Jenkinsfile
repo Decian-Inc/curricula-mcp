@@ -16,9 +16,9 @@ pipeline {
     environment {
         DOCKER_REGISTRY = 'nexus-registry.decian.net'
         IMAGE_NAME = 'curricula-mcp'
-        // Read/write deploy key on Decian-Inc/curricula-mcp. Used for the job's SCM
-        // checkout and for pushing the VERSION bump back.
-        GIT_DEPLOY_KEY = 'curricula-mcp-deploy-key'
+        // GitHub App credential (HTTPS): used by the job's SCM checkout and reused to push the
+        // VERSION bump back. The App must be installed on this repo with contents: write.
+        GIT_CREDENTIALS = 'jenkins-decianx-com'
     }
 
     stages {
@@ -118,10 +118,8 @@ pipeline {
                     if (branchName in ['master', 'main']) {
                         sh "git add VERSION"
                         sh "git commit -m '[skip ci] Update VERSION'"
-                        withCredentials([sshUserPrivateKey(credentialsId: env.GIT_DEPLOY_KEY, keyFileVariable: 'SSH_KEY')]) {
-                            sh """
-                                GIT_SSH_COMMAND='ssh -i \$SSH_KEY -o IdentitiesOnly=yes' git push ${scm.userRemoteConfigs[0].url.replace('https://github.com/', 'git@github.com:')} HEAD:${branchName}
-                            """
+                        withCredentials([gitUsernamePassword(credentialsId: env.GIT_CREDENTIALS)]) {
+                            sh "git push ${scm.userRemoteConfigs[0].url} HEAD:${branchName}"
                         }
                     }
                 }
